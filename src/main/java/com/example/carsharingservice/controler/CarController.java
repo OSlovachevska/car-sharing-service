@@ -1,7 +1,7 @@
 package com.example.carsharingservice.controler;
 
-import com.example.carsharingservice.dto.CarRequestDto;
-import com.example.carsharingservice.dto.CarResponseDto;
+import com.example.carsharingservice.dto.car.CarRequestDto;
+import com.example.carsharingservice.dto.car.CarResponseDto;
 import com.example.carsharingservice.mapper.CarMapper;
 import com.example.carsharingservice.model.Car;
 import com.example.carsharingservice.service.CarService;
