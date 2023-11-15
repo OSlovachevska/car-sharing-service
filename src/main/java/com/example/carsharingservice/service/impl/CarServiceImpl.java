@@ -31,18 +31,29 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car update(Long id, Car car) {
-        Car carFromDb = get(id);
-        carFromDb.setModel(car.getModel());
-        carFromDb.setBrand(car.getBrand());
-        carFromDb.setInventory(car.getInventory());
-        carFromDb.setDailyFree(car.getDailyFree());
-        carFromDb.setCarType(car.getCarType());
-        return carRepository.save(carFromDb);
+    public Car update(Car car) {
+        return carRepository.save(car);
     }
 
     @Override
     public void delete(Long id) {
         carRepository.deleteById(id);
+    }
+
+    @Override
+    public Car addCarToInventory(Long id) {
+        Car car = get(id);
+        car.setInventory(car.getInventory() + 1);
+        return carRepository.save(car);
+    }
+
+    @Override
+    public Car removeCarFromInventory(Long id) {
+        Car car = get(id);
+        if (car.getInventory() > 0) {
+            car.setInventory(car.getInventory() - 1);
+            return carRepository.save(car);
+        }
+        throw new RuntimeException("Can't take car with id " + id + " from inventory");
     }
 }
