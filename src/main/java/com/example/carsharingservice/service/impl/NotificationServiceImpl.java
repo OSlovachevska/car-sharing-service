@@ -44,7 +44,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public void sendMessageAboutSuccessRent(Rental rental) {
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(rental.getUser().getId());
+        sendMessage.setChatId(rental.getUser().getChatId());
         sendMessage.setText(getMessageAboutSuccessRent(rental));
         try {
             notificationBot.execute(sendMessage);
@@ -60,7 +60,7 @@ public class NotificationServiceImpl implements NotificationService {
         List<Rental> overdueRent = rentalService.findByOverdueRent(today);
         for (Rental rental : overdueRent) {
             SendMessage sendMessage = new SendMessage();
-            sendMessage.setChatId(rental.getUser().getId());
+            sendMessage.setChatId(rental.getUser().getChatId());
             sendMessage.setText(messageAboutOverdueRent(rental, today,
                     rental.getRentalTime(), rental.getReturnTime()));
             try {
@@ -74,7 +74,7 @@ public class NotificationServiceImpl implements NotificationService {
     private String getMessageAboutSuccessRent(Rental rental) {
         LocalDate rentalStart = rental.getRentalTime();
         LocalDate rentalReturn = rental.getReturnTime();
-        BigDecimal dailyFee = rental.getCar().getDailyFree();
+        BigDecimal dailyFee = rental.getCar().getDailyFee();
         return rental.getUser().getFirstName() + ", you are successfully rent:\n"
                 + rental.getCar().getModel() + " from " + rentalStart.toString()
                 + " to " + rentalReturn.toString() + "\n"
@@ -84,7 +84,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     private String messageAboutOverdueRent(Rental rental, LocalDate today,
                                            LocalDate start, LocalDate end) {
-        BigDecimal dailyFee = rental.getCar().getDailyFree();
+        BigDecimal dailyFee = rental.getCar().getDailyFee();
         return "You rented a car on " + start.toString() + " and had to return it on " + end
                 + "\nThe cost of rent was " + getTotalPrice(start, end, dailyFee) + "$"
                 + ", but now every day the cost will increase "
@@ -101,7 +101,7 @@ public class NotificationServiceImpl implements NotificationService {
         List<User> users = userService.findUserByRole(User.Role.CUSTOMER);
         for (User user : users) {
             SendMessage sendMessage = new SendMessage();
-            sendMessage.setChatId(user.getId());
+            sendMessage.setChatId(user.getChatId());
             sendMessage.setText(message);
             try {
                 notificationBot.execute(sendMessage);

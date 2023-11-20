@@ -1,5 +1,6 @@
 package com.example.carsharingservice.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -19,16 +20,20 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String model;
 
+    @Column(nullable = false)
     private String brand;
 
     @Enumerated(EnumType.STRING)
-    private CarType carType;
+    @Column(nullable = false)
+    private CarType type;
 
     private int inventory;
 
-    private BigDecimal dailyFree;
+    @Column(nullable = false)
+    private BigDecimal dailyFee;
 
     public enum CarType {
         SEDAN,

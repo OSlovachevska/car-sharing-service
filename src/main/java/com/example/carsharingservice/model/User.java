@@ -40,6 +40,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "chat_id")
+    private Long chatId;
+
     public enum Role implements GrantedAuthority {
         MANAGER,
         CUSTOMER;

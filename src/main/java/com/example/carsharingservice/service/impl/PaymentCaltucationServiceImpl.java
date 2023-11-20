@@ -28,7 +28,7 @@ public class PaymentCaltucationServiceImpl implements PaymentCalculationService 
         Car car = carService.get(rental.getCar().getId());
         long rentalDuration = ChronoUnit.DAYS.between(rental
                 .getRentalTime(), rental.getReturnTime());
-        return car.getDailyFree().multiply(BigDecimal.valueOf(rentalDuration));
+        return car.getDailyFee().multiply(BigDecimal.valueOf(rentalDuration));
     }
 
     @Override
@@ -36,7 +36,7 @@ public class PaymentCaltucationServiceImpl implements PaymentCalculationService 
         Rental rental = rentalService.getById(payment.getRental().getId());
         long overdueDays = rental.getActualReturnDate() != null
                 ? ChronoUnit.DAYS.between(rental.getRentalTime(), rental.getActualReturnDate()) : 0;
-        BigDecimal dailyFee = rental.getCar().getDailyFree();
+        BigDecimal dailyFee = rental.getCar().getDailyFee();
         return dailyFee.multiply(BigDecimal.valueOf((overdueDays)
                 * FINE_MULTIPLIER)).divide(BigDecimal.valueOf(100), RoundingMode.UP);
     }
