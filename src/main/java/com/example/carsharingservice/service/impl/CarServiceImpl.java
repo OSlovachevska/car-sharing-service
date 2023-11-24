@@ -32,7 +32,15 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car update(Car car) {
-        return carRepository.save(car);
+        Car carFromDb = carRepository.findById(car.getId()).orElseThrow(() ->
+                new NoSuchElementException("Can't find car by id: " + car.getId()));
+        carFromDb.setId(car.getId());
+        carFromDb.setModel(car.getModel());
+        carFromDb.setBrand(car.getBrand());
+        carFromDb.setType(car.getType());
+        carFromDb.setInventory(car.getInventory());
+        carFromDb.setDailyFee(car.getDailyFee());
+        return carFromDb;
     }
 
     @Override

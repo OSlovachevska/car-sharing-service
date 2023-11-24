@@ -15,10 +15,10 @@ public class NotificationBot extends TelegramLongPollingBot {
     private final UserRepository userRepository;
 
     @Value("${telegram.bot.token}")
-    private String yourTokenBot;
+    private String botToken;
 
     @Value("${telegram.bot.name}")
-    private String yourNameBot;
+    private String botName;
 
     public NotificationBot(UserRepository userRepository) {
         super();
@@ -48,12 +48,12 @@ public class NotificationBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return yourTokenBot;
+        return botToken;
     }
 
     @Override
     public String getBotUsername() {
-        return yourNameBot;
+        return botName;
     }
 
     private void sendMessage(Long chatId, String text) {
@@ -80,5 +80,9 @@ public class NotificationBot extends TelegramLongPollingBot {
     private void sendThankYouMessage(Long chatId) {
         String text = "You are successfully sync with your account";
         sendMessage(chatId, text);
+    }
+
+    public void setBotToken(String botToken) {
+        this.botToken = botToken;
     }
 }
