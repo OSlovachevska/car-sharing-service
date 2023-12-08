@@ -5,3 +5,5 @@ databaseChangeLog:
       file: db/changelog/changes/create-table-users.sql
   - include:
       file: db/changelog/changes/create-table-rentals.sql
+  - include:
+      file: db/changelog/changes/create-table-payments.sql
