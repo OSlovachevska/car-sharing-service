@@ -5,6 +5,7 @@ import com.example.carsharingservice.dto.car.CarResponseDto;
 import com.example.carsharingservice.mapper.CarMapper;
 import com.example.carsharingservice.model.Car;
 import com.example.carsharingservice.service.CarService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,17 +29,20 @@ public class CarController {
     private final CarMapper carMapper;
 
     @PostMapping
+    @Operation(description = "create new car if such don't exists")
     public CarResponseDto add(@RequestBody @Valid CarRequestDto carRequestDto) {
         Car car = carService.add(carMapper.toModel(carRequestDto));
         return carMapper.toDto(car);
     }
 
     @GetMapping("/{id}")
+    @Operation(description = "get car by id")
     public CarResponseDto get(@PathVariable Long id) {
         return carMapper.toDto(carService.get(id));
     }
 
     @GetMapping
+    @Operation(description = "get all cars")
     public List<CarResponseDto> getAll() {
         return carService.getAll().stream()
                 .map(carMapper::toDto)
@@ -46,6 +50,7 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
+    @Operation(description = "update car by id")
     public CarResponseDto update(@PathVariable Long id,
                                  @RequestBody @Valid CarRequestDto carRequestDto) {
         Car car = carMapper.toModel(carRequestDto);
@@ -53,6 +58,7 @@ public class CarController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(description = "delete car by id")
     public void delete(@PathVariable Long id) {
         carService.delete(id);
     }

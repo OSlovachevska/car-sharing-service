@@ -11,7 +11,11 @@ public interface CarService {
 
     List<Car> getAll();
 
-    Car update(Long id, Car car);
+    Car update(Car car);
 
     void delete(Long id);
+
+    Car addCarToInventory(Long id);
+
+    Car removeCarFromInventory(Long id);
 }
