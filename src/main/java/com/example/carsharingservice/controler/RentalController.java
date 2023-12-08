@@ -7,6 +7,7 @@ import com.example.carsharingservice.model.Car;
 import com.example.carsharingservice.model.Rental;
 import com.example.carsharingservice.model.User;
 import com.example.carsharingservice.service.CarService;
+import com.example.carsharingservice.service.NotificationService;
 import com.example.carsharingservice.service.RentalService;
 import com.example.carsharingservice.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,6 +37,8 @@ public class RentalController {
 
     private final RentalMapper rentalMapper;
 
+    private final NotificationService notificationService;
+
     @GetMapping("/{id}")
     @Operation(description = "Get rental by id")
     public RentalResponseDto getSpecificRental(@PathVariable Long id) {
@@ -55,6 +58,7 @@ public class RentalController {
     @PostMapping("/{id}/return")
     @Operation(description = "End rental by id")
     public void returnCar(@PathVariable Long id) {
+        notificationService.sendMessageToAllUsers("Thank you for returning the car)");
         Rental rental = rentalService.returnCar(id);
     }
 
@@ -68,6 +72,7 @@ public class RentalController {
         Rental newRental =
                 rentalService.createNewRental(car, user,
                         rentalRequestDto.getRentalTime(), rentalRequestDto.getReturnTime());
+        notificationService.sendMessageAboutSuccessRent(newRental);
         return rentalMapper.toDto(newRental);
     }
 

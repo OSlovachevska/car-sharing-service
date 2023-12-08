@@ -7,7 +7,6 @@ import com.example.carsharingservice.mapper.UserMapper;
 import com.example.carsharingservice.model.User;
 import com.example.carsharingservice.secutiry.JwtTokenProvider;
 import com.example.carsharingservice.service.AuthenticationService;
-import com.example.carsharingservice.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import java.util.HashMap;
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/auth")
 public class AuthenticationController {
 
-    private final UserService userService;
     private final AuthenticationService authenticationService;
     private final UserMapper userMapper;
     private final JwtTokenProvider jwtTokenProvider;
