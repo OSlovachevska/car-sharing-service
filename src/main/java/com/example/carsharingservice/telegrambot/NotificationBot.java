@@ -2,8 +2,8 @@ package com.example.carsharingservice.telegrambot;
 
 import com.example.carsharingservice.model.User;
 import com.example.carsharingservice.repository.UserRepository;
-import io.github.cdimascio.dotenv.Dotenv;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -13,6 +13,12 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 @Component
 public class NotificationBot extends TelegramLongPollingBot {
     private final UserRepository userRepository;
+
+    @Value("${telegram.bot.token}")
+    private String yourTokenBot;
+
+    @Value("${telegram.bot.name}")
+    private String yourNameBot;
 
     public NotificationBot(UserRepository userRepository) {
         super();
@@ -42,14 +48,12 @@ public class NotificationBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        Dotenv dotenv = Dotenv.load();
-        return dotenv.get("YOUR_BOT_TOKEN");
+        return yourTokenBot;
     }
 
     @Override
     public String getBotUsername() {
-        Dotenv dotenv = Dotenv.load();
-        return dotenv.get("YOUR_BOT_NAME");
+        return yourNameBot;
     }
 
     private void sendMessage(Long chatId, String text) {

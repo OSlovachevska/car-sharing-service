@@ -8,6 +8,4 @@ CREATE TABLE IF NOT EXISTS users
     role       VARCHAR(255) NOT NULL,
     chat_id bigint default null,
     PRIMARY KEY (id)
-    ) ENGINE = InnoDB
-    DEFAULT CHARSET = utf8mb4
-    COLLATE = utf8mb4_0900_ai_ci;
+    )

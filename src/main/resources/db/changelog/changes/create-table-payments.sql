@@ -9,6 +9,4 @@ CREATE TABLE IF NOT EXISTS payments
     rental_id bigint DEFAULT NULL,
     PRIMARY KEY (id),
     CONSTRAINT rental_fk FOREIGN KEY (rental_id) REFERENCES rentals (id)
-    ) ENGINE = InnoDB
-    DEFAULT CHARSET = utf8mb4
-    COLLATE = utf8mb4_0900_ai_ci;
+    )
