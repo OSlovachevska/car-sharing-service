@@ -5,6 +5,7 @@ import com.example.carsharingservice.repository.UserRepository;
 import com.example.carsharingservice.service.UserService;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +21,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getByUsername(String username) {
-        return userRepository.getUserByEmail(username).orElseThrow(
-                () -> new NoSuchElementException("Can`t find user by email" + username));
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
@@ -32,7 +32,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUserInfo(User user, String username) {
-        User userFromDb = getByUsername(username);
+        User userFromDb = findByEmail(username).orElseThrow(
+                () -> new NoSuchElementException("Can`t update user"));
         user.setId(userFromDb.getId());
         user.setRole(userFromDb.getRole());
         user.setEmail(userFromDb.getEmail());
