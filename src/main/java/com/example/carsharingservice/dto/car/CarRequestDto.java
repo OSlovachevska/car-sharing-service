@@ -1,4 +1,4 @@
-package com.example.carsharingservice.dto;
+package com.example.carsharingservice.dto.car;
 
 import com.example.carsharingservice.model.Car;
 import java.math.BigDecimal;
